@@ -71,7 +71,6 @@ var __ = wp.i18n.__;
 var registerBlockType = wp.blocks.registerBlockType;
 var createElement = wp.element.createElement;
 var _wp$blockEditor = wp.blockEditor,
-    useBlockProps = _wp$blockEditor.useBlockProps,
     BlockControls = _wp$blockEditor.BlockControls,
     AlignmentToolbar = _wp$blockEditor.AlignmentToolbar,
     RichText = _wp$blockEditor.RichText;
@@ -113,6 +112,7 @@ registerBlockType('actappblk/richtext', {
 			selector: 'div'
 		}
 	},
+
 	edit: function edit(props) {
 
 		function onChangeAlignment(updatedAlignment) {
@@ -123,7 +123,6 @@ registerBlockType('actappblk/richtext', {
 			props.setAttributes({ content: content });
 		}
 
-		//const blockProps = useBlockProps.save();
 		var rtProps = {
 			tagName: 'div',
 			className: getEditorClassName(props),
@@ -132,7 +131,7 @@ registerBlockType('actappblk/richtext', {
 			onChange: onChangeRichText,
 			placeholder: 'Heading here ...'
 		};
-		//{...blockProps}
+
 		return wp.element.createElement(
 			'div',
 			null,
@@ -149,8 +148,6 @@ registerBlockType('actappblk/richtext', {
 	},
 
 	save: function save(props) {
-		//blockProps = useBlockProps.save();
-		//{...blockProps}
 		return wp.element.createElement(RichText.Content, {
 			className: getClassNames(props),
 			tagName: 'div',

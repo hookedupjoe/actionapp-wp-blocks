@@ -1,7 +1,7 @@
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 const { createElement } = wp.element;
-const { useBlockProps, BlockControls, AlignmentToolbar, RichText } = wp.blockEditor;
+const { BlockControls, AlignmentToolbar, RichText } = wp.blockEditor;
 
 function getClassNames(props) {
 	var tmpRet = 'ui segment basic pad0 mar0';
@@ -39,6 +39,7 @@ registerBlockType('actappblk/richtext', {
 			selector: 'div',
 		},
 	},
+
 	edit: function (props) {
 
 		function onChangeAlignment(updatedAlignment) {
@@ -49,7 +50,6 @@ registerBlockType('actappblk/richtext', {
 			props.setAttributes({ content: content });
 		}
 
-		//const blockProps = useBlockProps.save();
 		const rtProps = {
 			tagName: 'div',
 			className: getEditorClassName(props),
@@ -58,7 +58,7 @@ registerBlockType('actappblk/richtext', {
 			onChange: onChangeRichText,
 			placeholder: ('Heading here ...'),
 		};
-//{...blockProps}
+
 		return <div>
 			<BlockControls>
 				<AlignmentToolbar
@@ -73,13 +73,10 @@ registerBlockType('actappblk/richtext', {
 	},
 
 	save: function (props) {
-		//blockProps = useBlockProps.save();
-		//{...blockProps}
 		return <RichText.Content
 			className={getClassNames(props)}
 			tagName="div"
 			value={props.attributes.content}
 		></RichText.Content>
-		
 	},
 });
