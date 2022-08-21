@@ -1,5 +1,6 @@
 module.exports = {
 	entry: {
+		richtext: './src/richtext.js',
 		block: './src/block.js',
 		mockblock: './src/mockblock.js'
 	},
