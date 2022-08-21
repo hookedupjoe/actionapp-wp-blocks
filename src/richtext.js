@@ -1,9 +1,9 @@
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 const { createElement } = wp.element;
-const { useBlockProps } = wp.blockEditor;
-var el = createElement;
+const { useBlockProps, BlockControls, AlignmentToolbar, RichText } = wp.blockEditor;
 
+var el = createElement;
 
 function getClassNames( props ){
 	var tmpRet = 'ui segment basic pad0 mar0';
@@ -19,6 +19,13 @@ function getClassNames( props ){
 	return tmpRet;
 }
 
+function getEditorClassName(props){
+	var tmpClass = '';
+	if( props.isSelected ){
+		tmpClass = 'actapp-block-box';
+	}
+	return tmpClass;
+}
 
 registerBlockType( 'actappblk/richtext', {
 	title: __( 'ActionApp Rich Text' ),
@@ -40,40 +47,33 @@ registerBlockType( 'actappblk/richtext', {
 			console.log( 'alignment: updatedAlignment', updatedAlignment);
 			props.setAttributes( { alignment: updatedAlignment } );
 		}
-
-		var tmpClass = '';
-		if( props.isSelected ){
-			tmpClass = 'actapp-block-box';
+		function onChangeRichText( content ) {
+			props.setAttributes( { content: content } ); 
 		}
 
-		var tmpAs = Object.assign( useBlockProps, {
-			tagName: 'div',  // The tag here is the element output and editable in the admin
-			className: tmpClass,
-			value: props.attributes.content || '', // Any existing content, either from the database or an attribute default
-			allowedFormats: [ 'core/bold', 'core/italic' ], // Allow the content to be made bold or italic, but do not allow other formatting options
-			onChange: function( content ) {
-				props.setAttributes( { content: content } ); // Store updated content as a block attribute
-			},
-			placeholder: ( 'Heading here ...' ), // Display this text before any content has been added by the user
-		} )
+		return <div
+			className={getClassNames(props)}
+		>
+		<BlockControls>
+			<AlignmentToolbar
+				value={props.attributes.alignment} 
+				onChange={onChangeAlignment}
+			></AlignmentToolbar>
+		</BlockControls>,
+		<RichText
+			tagName="div"
+			className={getEditorClassName(props)}
+			value={props.attributes.content}
+			allowedFormats={[ 'core/bold', 'core/italic' ]}
+			onChange={onChangeRichText}
+			placeholder="Heading here ...'"
+		></RichText>		
 
-		var tmpAligner = el(
-			wp.blockEditor.BlockControls,
-			{},
-			el(
-				wp.blockEditor.AlignmentToolbar,
-				{
-					value: props.attributes.alignment,
-					onChange: onChangeAlignment
-				}
-			)
-		);
-		return el('div',{className: getClassNames(props)},tmpAligner,el(wp.blockEditor.RichText,tmpAs));
+		</div>
 	},
  
 	save: function( props ) {
 		var blockProps = useBlockProps.save();
-
 		return wp.element.createElement( wp.blockEditor.RichText.Content, Object.assign( blockProps, {
 			className: getClassNames(props), tagName: 'div', value: props.attributes.content // Saves <div>Content added in the editor...</div> to the database for frontend display
 		} ) );
