@@ -116,6 +116,7 @@ registerBlockType('actappblk/richtext', {
 		}
 	},
 	edit: function edit(props) {
+		//const blockProps = useBlockProps();
 
 		function onChangeAlignment(updatedAlignment) {
 			console.log('alignment: updatedAlignment', updatedAlignment);
@@ -124,6 +125,51 @@ registerBlockType('actappblk/richtext', {
 		function onChangeRichText(content) {
 			props.setAttributes({ content: content });
 		}
+
+		// var tmpClass = '';
+		// if( props.isSelected ){
+		// 	tmpClass = 'actapp-block-box';
+		// }
+
+		var blockPropsRT = useBlockProps.save({
+			tagName: 'div', // The tag here is the element output and editable in the admin
+			className: getEditorClassName(props),
+			allowedFormats: ['core/bold', 'core/italic'], // Allow the content to be made bold or italic, but do not allow other formatting options
+			value: props.attributes.content || '', // Any existing content, either from the database or an attribute default
+			onChange: function onChange(content) {
+				props.setAttributes({ content: content }); // Store updated content as a block attribute
+			},
+			placeholder: 'Heading here ...' // Display this text before any content has been added by the user
+		});
+		// var tmpAs = Object.assign( useBlockProps, {
+		// 	tagName: 'div',  // The tag here is the element output and editable in the admin
+		// 	className: tmpClass,
+		// 	value: props.attributes.content || '', // Any existing content, either from the database or an attribute default
+		// 	allowedFormats: [ 'core/bold', 'core/italic' ], // Allow the content to be made bold or italic, but do not allow other formatting options
+		// 	onChange: function( content ) {
+		// 		props.setAttributes( { content: content } ); // Store updated content as a block attribute
+		// 	},
+		// 	placeholder: ( 'Heading here ...' ), // Display this text before any content has been added by the user
+		// } )
+
+		// var tmpAligner = el(
+		// 	wp.blockEditor.BlockControls,
+		// 	{},
+		// 	el(
+		// 		wp.blockEditor.AlignmentToolbar,
+		// 		{
+		// 			value: props.attributes.alignment,
+		// 			onChange: onChangeAlignment
+		// 		}
+		// 	)
+		// );
+		// var tmpAligner = <BlockControls>
+		// 	<AlignmentToolbar
+		// 		value={props.attributes.alignment} 
+		// 		onChange={onChangeAlignment}
+		// 	></AlignmentToolbar>
+		// </BlockControls>
+
 
 		return wp.element.createElement(
 			'div',
@@ -138,20 +184,14 @@ registerBlockType('actappblk/richtext', {
 					onChange: onChangeAlignment
 				})
 			),
-			',',
-			wp.element.createElement(RichText, {
-				tagName: 'div',
-				className: getEditorClassName(props),
-				value: props.attributes.content,
-				allowedFormats: ['core/bold', 'core/italic'],
-				onChange: onChangeRichText,
-				placeholder: 'Heading here ...\''
-			})
+			wp.element.createElement(RichText, blockPropsRT)
 		);
+		//return el('div',{className: getClassNames(props)},tmpAligner,el(wp.blockEditor.RichText,tmpAs));
 	},
 
 	save: function save(props) {
 		var blockProps = useBlockProps.save();
+
 		return wp.element.createElement(wp.blockEditor.RichText.Content, Object.assign(blockProps, {
 			className: getClassNames(props), tagName: 'div', value: props.attributes.content // Saves <div>Content added in the editor...</div> to the database for frontend display
 		}));
