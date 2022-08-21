@@ -1,4 +1,5 @@
 module.exports = {
+	mode: 'production',
 	entry: {
 		richtext: './src/richtext.js',
 		block: './src/block.js',
@@ -9,7 +10,7 @@ module.exports = {
 		filename: 'blocks/[name].js'
 	},
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /.js$/,
 				loader: 'babel-loader',

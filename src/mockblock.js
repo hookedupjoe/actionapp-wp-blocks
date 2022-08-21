@@ -7,12 +7,12 @@ registerBlockType( 'actappblk/static-mock', {
 	category: 'actappblk',
 	edit() {
 		return (
-			<p>A mock static block example built with JSX and updated.</p>
+			<p>A great mock static block example built with JSX and updated.</p>
 		);
 	},
 	save() {
 		return (
-			<p>A mock static block example built with JSX and updated.</p>
+			<p>A great mock static block example built with JSX and updated.</p>
 		);
 	},
 } );
