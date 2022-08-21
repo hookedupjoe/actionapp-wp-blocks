@@ -4,11 +4,13 @@ module.exports = {
         minimize: false
     },
 	entry: {
-		html: './src/html/index.js'
+		richtext: './src/richtext.js',
+		block: './src/block.js',
+		mockblock: './src/mockblock.js'
 	},
 	output: {
 		path: __dirname,
-		filename: 'blocks/html.js'
+		filename: 'blocks/[name].js'
 	},
 	module: {
 		rules: [

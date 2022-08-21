@@ -101,7 +101,8 @@ class ActAppBlocks {
 		// );
 		//--- Load standardly created widgets;
 		//$tmpWidgetList = array('segment','header','card', 'cards', 'message', 'button', 'image', 'cardsection','dropindicator','spot','richtext');
-		$tmpWidgetList = array('block','mockblock', 'richtext');
+		//'block','mockblock', 'richtext'
+		$tmpWidgetList = array('html');
 		foreach ($tmpWidgetList as $aName) {
 			self::loadStandardBlock($aName);
 		}
