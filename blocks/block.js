@@ -77,14 +77,14 @@ registerBlockType('actappblk/static-example', {
 	category: 'actappblk',
 	edit: function edit() {
 		return wp.element.createElement(
-			'p',
+			'div',
 			null,
 			'AA static block example built with JSX and updated.'
 		);
 	},
 	save: function save() {
 		return wp.element.createElement(
-			'p',
+			'div',
 			null,
 			'AA static block example built with JSX and updated.'
 		);

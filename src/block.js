@@ -7,12 +7,12 @@ registerBlockType( 'actappblk/static-example', {
 	category: 'actappblk',
 	edit() {
 		return (
-			<p>AA static block example built with JSX and updated.</p>
+			<div>AA static block example built with JSX and updated.</div>
 		);
 	},
 	save() {
 		return (
-			<p>AA static block example built with JSX and updated.</p>
+			<div>AA static block example built with JSX and updated.</div>
 		);
 	},
 } );

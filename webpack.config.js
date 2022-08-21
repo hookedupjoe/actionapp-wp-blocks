@@ -1,13 +1,13 @@
 module.exports = {
-    entry: {
+	entry: {
 		block: './src/block.js',
 		mockblock: './src/mockblock.js'
-	  },
-	  output: {
+	},
+	output: {
 		path: __dirname,
 		filename: 'blocks/[name].js'
-	  },
-	  module: {
+	},
+	module: {
 		loaders: [
 			{
 				test: /.js$/,
@@ -15,5 +15,5 @@ module.exports = {
 				exclude: /node_modules/,
 			},
 		],
-	},
+	}
 };
