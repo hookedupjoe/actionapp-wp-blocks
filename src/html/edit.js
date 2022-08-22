@@ -1,8 +1,8 @@
 /**
  * WordPress dependencies
  */
- const { __ } = wp.i18n;
- const { useContext, useState } = wp.element;
+const { __ } = wp.i18n;
+const { useContext, useState } = wp.element;
 const {
 	BlockControls,
 	PlainText,
@@ -19,16 +19,26 @@ export default function HTMLEdit( { attributes, setAttributes, isSelected } ) {
 	const [ isPreview, setIsPreview ] = useState();
 	const isDisabled = useContext( Disabled.Context );
 
+	function showInPopup(){
+		console.log('attributes',attributes);
+		ThisApp.confirm('Change this?', 'Update HTML').then(function(theReply){
+			if(theReply){
+				setAttributes({content:'wow <b>z</b>'});
+			}
+		})
+		
+		//alert('showInPopup');
+	}
 	function switchToPreview() {
 		setIsPreview( true );
 	}
 
-	function switchToHTML() {
+	function switchToHTML() {		
 		setIsPreview( false );
 	}
 
 	return (
-		<div { ...useBlockProps( { className: 'block-library-html__edit' } ) }>
+		<div { ...useBlockProps( { className: 'actappblk-html__edit' } ) }>
 			<BlockControls>
 				<ToolbarGroup>
 					<ToolbarButton
@@ -44,6 +54,13 @@ export default function HTMLEdit( { attributes, setAttributes, isSelected } ) {
 						onClick={ switchToPreview }
 					>
 						{ __( 'Preview' ) }
+					</ToolbarButton>
+					<ToolbarButton
+						className="components-tab-button"
+						isPressed={ false }
+						onClick={ showInPopup }
+					>
+						{ __( 'Editor' ) }
 					</ToolbarButton>
 				</ToolbarGroup>
 			</BlockControls>

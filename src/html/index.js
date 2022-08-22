@@ -32,4 +32,4 @@ Object.assign(settings, {
 } );
 
 
-registerBlockType( 'actappblk/static-example', settings);
+registerBlockType( name, settings);

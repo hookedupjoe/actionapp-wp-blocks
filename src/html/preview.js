@@ -3,13 +3,10 @@
  */
  const { __ } = wp.i18n;
 const { useMemo } = wp.element;
-const {
-	transformStyles,
-	store,
-} = wp.blockEditor;
+const { transformStyles } = wp.blockEditor;
 const { SandBox } = wp.components;
 const { useSelect } = wp.data;
-const blockEditorStore = store;
+const blockEditorStore = wp.blockEditor.store;
 
 // Default styles used to unset some of the styles
 // that might be inherited from the editor style.
@@ -41,7 +38,7 @@ export default function HTMLEditPreview( { content, isSelected } ) {
 				difficult to reselect the block.
 			*/ }
 			{ ! isSelected && (
-				<div className="block-library-html__preview-overlay"></div>
+				<div className="actappblk-html__preview-overlay"></div>
 			) }
 		</div>
 	);

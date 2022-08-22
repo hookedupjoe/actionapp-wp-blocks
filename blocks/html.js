@@ -10,13 +10,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  */
 var __ = wp.i18n.__;
 var useMemo = wp.element.useMemo;
-var _wp$blockEditor = wp.blockEditor,
-    transformStyles = _wp$blockEditor.transformStyles,
-    store = _wp$blockEditor.store;
+var transformStyles = wp.blockEditor.transformStyles;
 var SandBox = wp.components.SandBox;
 var useSelect = wp.data.useSelect;
 
-var blockEditorStore = store;
+var blockEditorStore = wp.blockEditor.store;
 
 // Default styles used to unset some of the styles
 // that might be inherited from the editor style.
@@ -38,7 +36,7 @@ function HTMLEditPreview(_ref) {
 		"div",
 		null,
 		wp.element.createElement(SandBox, { html: content, styles: styles }),
-		!isSelected && wp.element.createElement("div", { className: "block-library-html__preview-overlay" })
+		!isSelected && wp.element.createElement("div", { className: "actappblk-html__preview-overlay" })
 	);
 }
 ;// CONCATENATED MODULE: ./src/html/edit.js
@@ -51,10 +49,10 @@ var edit_ = wp.i18n.__;
 var _wp$element = wp.element,
     useContext = _wp$element.useContext,
     useState = _wp$element.useState;
-var edit_wp$blockEditor = wp.blockEditor,
-    BlockControls = edit_wp$blockEditor.BlockControls,
-    PlainText = edit_wp$blockEditor.PlainText,
-    useBlockProps = edit_wp$blockEditor.useBlockProps;
+var _wp$blockEditor = wp.blockEditor,
+    BlockControls = _wp$blockEditor.BlockControls,
+    PlainText = _wp$blockEditor.PlainText,
+    useBlockProps = _wp$blockEditor.useBlockProps;
 var _wp$components = wp.components,
     ToolbarButton = _wp$components.ToolbarButton,
     Disabled = _wp$components.Disabled,
@@ -78,6 +76,16 @@ function HTMLEdit(_ref) {
 
 	var isDisabled = useContext(Disabled.Context);
 
+	function showInPopup() {
+		console.log('attributes', attributes);
+		ThisApp.confirm('Change this?', 'Update HTML').then(function (theReply) {
+			if (theReply) {
+				setAttributes({ content: 'wow <b>z</b>' });
+			}
+		});
+
+		//alert('showInPopup');
+	}
 	function switchToPreview() {
 		setIsPreview(true);
 	}
@@ -88,7 +96,7 @@ function HTMLEdit(_ref) {
 
 	return wp.element.createElement(
 		'div',
-		useBlockProps({ className: 'block-library-html__edit' }),
+		useBlockProps({ className: 'actappblk-html__edit' }),
 		wp.element.createElement(
 			BlockControls,
 			null,
@@ -112,6 +120,15 @@ function HTMLEdit(_ref) {
 						onClick: switchToPreview
 					},
 					edit_('Preview')
+				),
+				wp.element.createElement(
+					ToolbarButton,
+					{
+						className: 'components-tab-button',
+						isPressed: false,
+						onClick: showInPopup
+					},
+					edit_('Editor')
 				)
 			)
 		),
@@ -200,6 +217,6 @@ Object.assign(settings, {
 	transforms: html_transforms
 });
 
-registerBlockType('actappblk/static-example', settings);
+registerBlockType(html_name, settings);
 /******/ })()
 ;
