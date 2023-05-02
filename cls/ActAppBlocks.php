@@ -38,7 +38,7 @@ class ActAppBlocks {
 					'title' => __( 'Action App Blocks'),
 				),
 			),
-			$categories,
+			$categories
 		);
 	}
 
